@@ -18,7 +18,7 @@ function ImageHover({
     shadowX: 0,
     shadowY: 10,
     shadowBlur: 30,
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.1,
     opacity: 0,
   });
 
@@ -31,7 +31,7 @@ function ImageHover({
     shadowX: 0,
     shadowY: 10,
     shadowBlur: 30,
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.1,
     opacity: 0,
   });
 
@@ -44,7 +44,7 @@ function ImageHover({
     shadowX: 0,
     shadowY: 10,
     shadowBlur: 30,
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.1,
     opacity: 0,
   });
 
@@ -53,14 +53,14 @@ function ImageHover({
       const currentValue = current.current;
       const targetValue = target.current;
 
-      // Kecepatan smoothing utama
+      // Smoothing
       const positionSmoothing = 0.12;
       const tiltSmoothing = 0.1;
       const scaleSmoothing = 0.1;
       const shadowSmoothing = 0.1;
       const opacitySmoothing = 0.12;
 
-      // Spotlight
+      // Spotlight position
       currentValue.x +=
         (targetValue.x - currentValue.x) * positionSmoothing;
 
@@ -93,7 +93,7 @@ function ImageHover({
         (targetValue.shadowOpacity - currentValue.shadowOpacity) *
         shadowSmoothing;
 
-      // Spotlight opacity
+      // Lighting opacity
       currentValue.opacity +=
         (targetValue.opacity - currentValue.opacity) *
         opacitySmoothing;
@@ -126,8 +126,9 @@ function ImageHover({
     target.current.opacity = 1;
     target.current.scale = 1.015;
 
-    target.current.shadowBlur = 50;
-    target.current.shadowOpacity = 0.18;
+    // Shadow saat hover
+    target.current.shadowBlur = 45;
+    target.current.shadowOpacity = 0.16;
   };
 
   const handleMouseMove = (event) => {
@@ -155,8 +156,11 @@ function ImageHover({
     // Shadow mengikuti arah cursor
     const maxShadowOffset = 12;
 
-    target.current.shadowX = normalizedX * -maxShadowOffset;
-    target.current.shadowY = normalizedY * -maxShadowOffset + 15;
+    target.current.shadowX =
+      normalizedX * -maxShadowOffset;
+
+    target.current.shadowY =
+      normalizedY * -maxShadowOffset + 15;
   };
 
   const handleMouseLeave = () => {
@@ -164,7 +168,7 @@ function ImageHover({
     target.current.x = 50;
     target.current.y = 50;
 
-    // Tilt kembali ke posisi normal
+    // Tilt kembali normal
     target.current.tiltX = 0;
     target.current.tiltY = 0;
 
@@ -175,9 +179,9 @@ function ImageHover({
     target.current.shadowX = 0;
     target.current.shadowY = 10;
     target.current.shadowBlur = 30;
-    target.current.shadowOpacity = 0.08;
+    target.current.shadowOpacity = 0.1;
 
-    // Fade spotlight setelah mulai kembali ke tengah
+    // Spotlight mulai menghilang
     fadeTimeoutRef.current = setTimeout(() => {
       target.current.opacity = 0;
       fadeTimeoutRef.current = null;
@@ -199,6 +203,7 @@ function ImageHover({
             scale(${style.scale})
           `,
           transformStyle: "preserve-3d",
+
           boxShadow: `
             ${style.shadowX}px
             ${style.shadowY}px
@@ -213,22 +218,48 @@ function ImageHover({
           className="h-full w-full object-cover"
         />
 
-        {/* Dimming + Spotlight */}
+        {/* White Spotlight */}
         <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            opacity: style.opacity,
-            background: `
-              radial-gradient(
-                circle at ${style.x}% ${style.y}%,
-                rgba(255, 255, 255, 0.28) 0%,
-                rgba(255, 255, 255, 0.18) 10%,
-                rgba(0, 0, 0, 0.18) 28%,
-                rgba(0, 0, 0, 0.38) 55%,
-                rgba(0, 0, 0, 0.52) 100%
-              )
-            `,
-          }}
+            className="pointer-events-none absolute inset-0"
+            style={{
+                opacity: style.opacity,
+
+                background: `
+                radial-gradient(
+                    circle at ${style.x}% ${style.y}%,
+                    rgba(255, 255, 255, 0.25) 0%,
+                    rgba(255, 255, 255, 0.21) 10%,
+                    rgba(255, 255, 255, 0.16) 20%,
+                    rgba(255, 255, 255, 0.11) 32%,
+                    rgba(255, 255, 255, 0.07) 45%,
+                    rgba(255, 255, 255, 0.035) 60%,
+                    rgba(255, 255, 255, 0.01) 75%,
+                    rgba(255, 255, 255, 0) 100%
+                )
+                `,
+            }}
+        />
+
+        {/* Dimming */}
+        <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+                opacity: style.opacity,
+
+                background: `
+                radial-gradient(
+                    circle at ${style.x}% ${style.y}%,
+                    rgba(0, 0, 0, 0) 0%,
+                    rgba(0, 0, 0, 0.01) 15%,
+                    rgba(0, 0, 0, 0.035) 28%,
+                    rgba(0, 0, 0, 0.08) 42%,
+                    rgba(0, 0, 0, 0.15) 56%,
+                    rgba(0, 0, 0, 0.30) 70%,
+                    rgba(0, 0, 0, 0.40) 85%,
+                    rgba(0, 0, 0, 0.60) 100%
+                )
+                `,
+            }}
         />
       </div>
     </div>
