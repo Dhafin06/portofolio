@@ -6,15 +6,15 @@ function Navbar() {
         <div className="justify-self-start">
           <a
             href="#home"
-            className="text-lg font-semibold tracking-tight"
+            className="text-[21px] font-extrabold tracking-[-0.04em] text-neutral-950"
           >
-            Dhafin
+            Dhafin.
           </a>
         </div>
 
         {/* Floating Navigation */}
         <nav className="hidden rounded-full border border-neutral-200 bg-white px-6 py-3 md:block">
-          <ul className="flex items-center gap-6 text-sm">
+          <ul className="flex items-center gap-6 text-sm font-medium text-neutral-800">
             <li>
               <a
                 href="#about"
@@ -57,7 +57,7 @@ function Navbar() {
         <div className="flex items-center gap-3 justify-self-end">
           <a
             href="#contact"
-            className="hidden rounded-full bg-black px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-80 sm:block"
+            className="hidden rounded-full bg-black px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-80 sm:block"
           >
             Hire Me
           </a>
@@ -65,7 +65,7 @@ function Navbar() {
           <button
             type="button"
             aria-label="Toggle theme"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-sm transition-opacity hover:opacity-60"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-sm font-medium transition-opacity hover:opacity-60"
           >
             ◐
           </button>

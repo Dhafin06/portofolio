@@ -220,46 +220,48 @@ function ImageHover({
 
         {/* White Spotlight */}
         <div
-            className="pointer-events-none absolute inset-0"
-            style={{
-                opacity: style.opacity,
+          className="pointer-events-none absolute inset-0"
+          style={{
+            opacity: style.opacity,
 
-                background: `
-                radial-gradient(
-                    circle at ${style.x}% ${style.y}%,
-                    rgba(255, 255, 255, 0.25) 0%,
-                    rgba(255, 255, 255, 0.21) 10%,
-                    rgba(255, 255, 255, 0.16) 20%,
-                    rgba(255, 255, 255, 0.11) 32%,
-                    rgba(255, 255, 255, 0.07) 45%,
-                    rgba(255, 255, 255, 0.035) 60%,
-                    rgba(255, 255, 255, 0.01) 75%,
-                    rgba(255, 255, 255, 0) 100%
-                )
-                `,
-            }}
+            background: `
+              radial-gradient(
+                circle at ${style.x}% ${style.y}%,
+                rgba(255, 255, 255, 0.38) 0%,
+                rgba(255, 255, 255, 0.33) 6%,
+                rgba(255, 255, 255, 0.26) 12%,
+                rgba(255, 255, 255, 0.19) 20%,
+                rgba(255, 255, 255, 0.13) 29%,
+                rgba(255, 255, 255, 0.08) 38%,
+                rgba(255, 255, 255, 0.045) 46%,
+                rgba(255, 255, 255, 0.018) 52%,
+                rgba(255, 255, 255, 0) 58%
+              )
+            `,
+          }}
         />
 
         {/* Dimming */}
         <div
-            className="pointer-events-none absolute inset-0"
-            style={{
-                opacity: style.opacity,
+          className="pointer-events-none absolute inset-0"
+          style={{
+            opacity: style.opacity,
 
-                background: `
-                radial-gradient(
-                    circle at ${style.x}% ${style.y}%,
-                    rgba(0, 0, 0, 0) 0%,
-                    rgba(0, 0, 0, 0.01) 15%,
-                    rgba(0, 0, 0, 0.035) 28%,
-                    rgba(0, 0, 0, 0.08) 42%,
-                    rgba(0, 0, 0, 0.15) 56%,
-                    rgba(0, 0, 0, 0.30) 70%,
-                    rgba(0, 0, 0, 0.40) 85%,
-                    rgba(0, 0, 0, 0.60) 100%
-                )
-                `,
-            }}
+            background: `
+              radial-gradient(
+                circle at ${style.x}% ${style.y}%,
+                rgba(0, 0, 0, 0) 0%,
+                rgba(0, 0, 0, 0.01) 10%,
+                rgba(0, 0, 0, 0.035) 20%,
+                rgba(0, 0, 0, 0.08) 32%,
+                rgba(0, 0, 0, 0.15) 44%,
+                rgba(0, 0, 0, 0.24) 56%,
+                rgba(0, 0, 0, 0.35) 70%,
+                rgba(0, 0, 0, 0.48) 84%,
+                rgba(0, 0, 0, 0.60) 100%
+              )
+            `,
+          }}
         />
       </div>
     </div>

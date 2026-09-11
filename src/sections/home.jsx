@@ -10,7 +10,7 @@ function Home() {
       <div className="mx-auto grid min-h-[calc(100vh-8rem)] max-w-7xl items-center gap-16 lg:grid-cols-2">
         
         {/* Introduction */}
-        <div className="lg:-translate-x-6">
+        <div className="lg:-translate-x-6 lg:-translate-y-20">
           <p className="mb-4 text-sm text-neutral-500">
             Hello, I’m
           </p>
