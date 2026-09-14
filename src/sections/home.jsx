@@ -22,6 +22,15 @@ function Home() {
           <p className="mt-6 max-w-lg text-base leading-7 text-neutral-600">
             Welcome to my personal portfolio.
           </p>
+
+          {/* Download CV */}
+          <a
+            href={profileImage}
+            download="Dhafin-Aksanidra-CV.png"
+            className="mt-8 inline-flex items-center rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition-opacity hover:opacity-80"
+          >
+            Download CV
+          </a>
         </div>
 
         {/* Profile Image */}
