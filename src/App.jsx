@@ -1,5 +1,6 @@
 import Navbar from "./components/navbar";
 import Home from "./sections/home";
+import About from "./sections/about";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
 
       <main>
         <Home />
+        <About />
       </main>
     </>
   );
