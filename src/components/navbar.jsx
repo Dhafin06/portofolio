@@ -106,7 +106,7 @@ function Navbar() {
             href="#contact"
             className="hidden rounded-full bg-black px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-80 sm:block"
           >
-            Hire Me
+            Contact Me
           </a>
 
           <button
