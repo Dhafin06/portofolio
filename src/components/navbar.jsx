@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const sections = ["about", "skills", "projects", "certifications"];
 
@@ -102,17 +103,35 @@ function Navbar() {
 
         {/* Actions */}
         <div className="flex items-center gap-3 justify-self-end">
-          <a
-            href="#contact"
-            className="hidden rounded-full bg-black px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-80 sm:block"
+          <Link
+            to="/contact"
+            className="
+              hidden rounded-full
+              bg-black
+              px-5 py-2.5
+              text-sm font-semibold
+              text-white
+              transition-opacity
+              hover:opacity-80
+              sm:block
+            "
           >
             Contact Me
-          </a>
+          </Link>
 
           <button
             type="button"
             aria-label="Toggle theme"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-sm font-medium transition-opacity hover:opacity-60"
+            className="
+              flex h-10 w-10
+              items-center justify-center
+              rounded-full
+              border border-neutral-200
+              bg-white
+              text-sm font-medium
+              transition-opacity
+              hover:opacity-60
+            "
           >
             ◐
           </button>

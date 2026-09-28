@@ -1,21 +1,16 @@
-import Navbar from "./components/navbar";
-import Home from "./sections/home";
-import About from "./sections/about";
-import Skills from "./sections/skills";
-import Projects from "./sections/projects";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import HomePage from "./pages/home-page";
+import ContactPage from "./pages/contact-page";
 
 function App() {
   return (
-    <>
-      <Navbar />
-
-      <main>
-        <Home />
-        <About />
-        <Skills />
-        <Projects />
-      </main>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
