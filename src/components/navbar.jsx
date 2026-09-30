@@ -1,142 +1,215 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const sections = ["about", "skills", "projects", "certifications"];
+  const navItems = [
+    { label: "About", id: "about" },
+    { label: "Skills", id: "skills" },
+    { label: "Projects", id: "projects" },
+    { label: "Certifications", id: "certifications" },
+  ];
 
 function Navbar() {
+  const location = useLocation();
+
   const [activeSection, setActiveSection] = useState(null);
 
+  const isContactPage = location.pathname === "/contact";
+  const isHomePage = location.pathname === "/";
+
+  /*
+   * Detect active section on homepage
+   */
   useEffect(() => {
-    const sectionIds = [
-      "home",
-      "about",
-      "skills",
-      "projects",
-      "certifications",
-    ];
+    if (!isHomePage) {
+      return;
+    }
 
-    const sectionElements = sectionIds
-      .map((id) => document.getElementById(id))
+    const sections = navItems
+      .map((item) => document.getElementById(item.id))
       .filter(Boolean);
-
-    if (!sectionElements.length) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visibleSections = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort(
-            (a, b) =>
-              b.intersectionRatio - a.intersectionRatio
-          );
+        const visibleSection = entries.find(
+          (entry) => entry.isIntersecting
+        );
 
-        if (visibleSections.length === 0) return;
-
-        const currentSection = visibleSections[0].target.id;
-
-        if (currentSection === "home") {
-          setActiveSection(null);
-        } else {
-          setActiveSection(currentSection);
+        if (visibleSection) {
+          setActiveSection(visibleSection.target.id);
         }
       },
       {
-        root: null,
-        rootMargin: "-20% 0px -55% 0px",
-        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+        rootMargin: "-35% 0px -55% 0px",
+        threshold: 0,
       }
     );
 
-    sectionElements.forEach((section) => {
-      observer.observe(section);
-    });
+    sections.forEach((section) => observer.observe(section));
 
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [isHomePage]);
+
+  /*
+   * Scroll to section when navigating from another route
+   * or when clicking a navbar item.
+   */
+  useEffect(() => {
+    if (!isHomePage || !location.hash) {
+      return;
+    }
+
+    const sectionId = location.hash.replace("#", "");
+
+    requestAnimationFrame(() => {
+      const element = document.getElementById(sectionId);
+
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    });
+  }, [isHomePage, location.hash]);
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 px-6 py-5 md:px-8 lg:px-10">
-      <div className="mx-auto grid max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center">
+    <header className="fixed inset-x-0 top-0 z-50 px-6 pt-5 md:px-8 lg:px-10">
+      <nav
+        className="
+          mx-auto
+          grid
+          max-w-7xl
+          grid-cols-[1fr_auto_1fr]
+          items-center
+        "
+      >
         {/* Logo */}
         <div className="justify-self-start">
-          <a
-            href="#home"
-            className="text-[21px] font-extrabold tracking-[-0.04em] text-neutral-950"
+          <Link
+            to="/#home"
+            className={`
+              inline-flex
+              items-center
+              rounded-full
+              border
+              px-5
+              py-2.5
+              text-base
+              font-[900]
+              tracking-[-0.03em]
+              transition-all
+              duration-200
+              ${
+                isContactPage
+                  ? "border-white/10 bg-white/[0.06] text-white hover:bg-white/10"
+                  : "border-neutral-200 bg-white/90 text-neutral-950 shadow-sm hover:bg-white"
+              }
+            `}
           >
             Dhafin.
-          </a>
+          </Link>
         </div>
 
-        {/* Floating Navigation */}
-        <nav className="hidden rounded-full border border-neutral-200 bg-white p-1.5 md:block">
-          <ul className="flex items-center gap-1 text-sm font-medium text-neutral-800">
-            {sections.map((section) => {
-              const label =
-                section.charAt(0).toUpperCase() +
-                section.slice(1);
+        {/* Navigation */}
+        <div
+          className={`
+            hidden
+            items-center
+            gap-1
+            rounded-full
+            border
+            p-1
+            backdrop-blur-md
+            md:flex
+            ${
+              isContactPage
+                ? "border-white/10 bg-white/[0.06]"
+                : "border-neutral-200 bg-white/90 shadow-sm"
+            }
+          `}
+        >
+          {navItems.map((item) => {
+            const isActive =
+              isHomePage && activeSection === item.id;
 
-              const isActive = activeSection === section;
-
-              return (
-                <li key={section}>
-                  <a
-                    href={`#${section}`}
-                    className={`
-                      block rounded-full px-4 py-2
-                      transition-all duration-300
-                      ${
-                        isActive
-                          ? "bg-black text-white"
-                          : "text-neutral-800 hover:bg-neutral-100"
-                      }
-                    `}
-                  >
-                    {label}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+            return (
+              <Link
+                key={item.id}
+                to={`/#${item.id}`}
+                className={`
+                  rounded-full
+                  px-4
+                  py-2
+                  text-sm
+                  transition-all
+                  duration-200
+                  ${
+                    isActive
+                      ? "bg-neutral-900 text-white"
+                      : isContactPage
+                        ? "text-neutral-400 hover:bg-white/10 hover:text-white"
+                        : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
+                  }
+                `}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </div>
 
         {/* Actions */}
         <div className="flex items-center gap-3 justify-self-end">
-          <Link
-            to="/contact"
-            className="
-              hidden rounded-full
-              bg-black
-              px-5 py-2.5
-              text-sm font-semibold
-              text-white
-              transition-opacity
-              hover:opacity-80
-              sm:block
-            "
-          >
-            Contact Me
-          </Link>
+          {!isContactPage && (
+            <Link
+              to="/contact"
+              className="
+                hidden
+                rounded-full
+                bg-black
+                px-5
+                py-2.5
+                text-sm
+                font-semibold
+                text-white
+                transition-opacity
+                hover:opacity-80
+                sm:block
+              "
+            >
+              Contact Me
+            </Link>
+          )}
 
+          {/* Theme Toggle */}
           <button
             type="button"
             aria-label="Toggle theme"
-            className="
-              flex h-10 w-10
-              items-center justify-center
+            className={`
+              flex
+              h-10
+              w-10
+              items-center
+              justify-center
               rounded-full
-              border border-neutral-200
-              bg-white
-              text-sm font-medium
-              transition-opacity
-              hover:opacity-60
-            "
+              border
+              text-sm
+              font-medium
+              transition-all
+              duration-200
+              ${
+                isContactPage
+                  ? "border-white/15 bg-white/[0.06] text-white hover:bg-white/10"
+                  : "border-neutral-200 bg-white text-neutral-900 hover:bg-neutral-100"
+              }
+            `}
           >
             ◐
           </button>
         </div>
-      </div>
+      </nav>
     </header>
   );
 }
